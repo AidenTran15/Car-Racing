@@ -1,7 +1,7 @@
 import pygame
 import time
 import math
-from utils import scale_image
+from utils import scale_image, blit_rotate_center
 
 GRASS = scale_image(pygame.image.load("images/grass.jpg"), 2.5)
 TRACK = scale_image(pygame.image.load("images/track.png"), 0.9)
@@ -18,6 +18,7 @@ FPS = 60
 
 class AbstractCar:
     def __init__(self, max_vel, rotatio_vel):
+        self.img = self.IMG
         self.max_vel = max_vel
         self.rotatio_vel = rotatio_vel
         self.angle = 0
@@ -27,6 +28,12 @@ class AbstractCar:
             self.angle += self.rotation_vel
         elif right:
             self.angle -= self.rotation_vel
+        
+    def draw(self, win):
+        blit_rotate_center(win, self.img)
+        
+class PlayerCar(AbstractCar):
+    IMG = GREEN_CAR
 
 def draw(win, images):
     for img, pos in images:
