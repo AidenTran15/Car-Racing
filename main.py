@@ -17,10 +17,10 @@ pygame.display.set_caption("Racing Game!")
 FPS = 60
 
 class AbstractCar:
-    def __init__(self, max_vel, rotatio_vel):
+    def __init__(self, max_vel, rotation_vel):
         self.img = self.IMG
         self.max_vel = max_vel
-        self.rotatio_vel = rotatio_vel
+        self.rotation_vel = rotation_vel
         self.angle = 180
         self.x, self.y = self.START_POS
         
@@ -60,4 +60,10 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             break
+        
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_a]:
+        player_car.rotate(left=True)
+    if keys[pygame.K_d]:
+        player_car.rotate(right=True)
 pygame.quit()
