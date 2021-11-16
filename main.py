@@ -93,4 +93,5 @@ while run:
         player_car.move_forward()
     if not moved:
         player_car.reduce_speed()
+        
 pygame.quit()
