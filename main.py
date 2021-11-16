@@ -21,7 +21,7 @@ class AbstractCar:
         self.img = self.IMG
         self.max_vel = max_vel
         self.rotatio_vel = rotatio_vel
-        self.angle = 0
+        self.angle = 180
         self.x, self.y = self.START_POS
         
     def rotate(self, left=False, right=False):
