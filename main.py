@@ -67,7 +67,7 @@ def draw(win, images, player_car):
 run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0))]
-player_car = PlayerCar(6, 5)
+player_car = PlayerCar(1, 5)
 
 
 
