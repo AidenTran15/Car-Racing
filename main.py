@@ -41,6 +41,10 @@ class AbstractCar:
         self.vel = min(self.vel + self.acceleration, self.max_vel)
         self.move()
         
+    def move_backward(self):
+        self.vel = max(self.vel - self.acceleration, -self.max_vel/2)
+        self.move()
+        
     def move(self):
         radians = math.radians(self.angle)
         vertical = math.cos(radians) * self.vel
@@ -67,7 +71,7 @@ def draw(win, images, player_car):
 run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0))]
-player_car = PlayerCar(1, 5)
+player_car = PlayerCar(4, 4)
 
 
 
@@ -91,6 +95,9 @@ while run:
     if keys[pygame.K_w]:
         moved = True
         player_car.move_forward()
+    if keys[pygame.K_s]:
+        moved = True
+        player_car.move_backward()
     if not moved:
         player_car.reduce_speed()
         
