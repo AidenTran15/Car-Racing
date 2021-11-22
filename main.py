@@ -8,6 +8,7 @@ TRACK = scale_image(pygame.image.load("images/track.png"), 0.9)
 TRACK_BORDER = scale_image(pygame.image.load("images/track-border.png"), 0.9)
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 FINISH = pygame.image.load("images/finish.png")
+FINISH_POSITION = (130, 250)
 RED_CAR = scale_image(pygame.image.load("images/red-car.png"), 0.55)
 GREEN_CAR = scale_image(pygame.image.load("images/green-car.png"), 0.55)
 
@@ -99,7 +100,7 @@ def move_player(player_car):
         
 run = True
 clock = pygame.time.Clock()
-images = [(GRASS, (0,0)), (TRACK, (0,0))]
+images = [(GRASS, (0,0)), (TRACK, (0,0)), (FINISH, FINISH_POSITION), (TRACK_BORDER, (0,0))]
 player_car = PlayerCar(4, 4)
 
 
@@ -117,7 +118,7 @@ while run:
     move_player(player_car)    
     
     if player_car.collide(TRACK_BORDER_MASK) != None:
-        print("collide")
+        player_car.bounce()
 
         
 pygame.quit()
