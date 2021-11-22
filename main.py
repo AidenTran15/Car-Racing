@@ -68,6 +68,10 @@ class PlayerCar(AbstractCar):
     def reduce_speed(self):
         self.vel = max(self.vel - self.acceleration / 2, 0)
         self.move()#The position of a car at the start point
+        
+    def bounce(self):
+        self.vel = -self.vel
+        self.move()
 
 def draw(win, images, player_car):
     for img, pos in images:
