@@ -54,6 +54,11 @@ class AbstractCar:
         self.y -= vertical
         self.x -= horizontal
         
+    def collide(self, mask, x=0, y=0):
+        car_mask = pygame.mask.from_surface(self.img)
+        offset = (int(self.x -x), int(self.y - y))
+        poi = mask.overlap(car_mask, offset)
+        return poi
 
         
 class PlayerCar(AbstractCar):
@@ -106,6 +111,9 @@ while run:
             break
     
     move_player(player_car)    
+    
+    if player_car.collide(TRACK_BORDER_MASK) != None:
+        print("collide")
 
         
 pygame.quit()
