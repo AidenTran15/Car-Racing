@@ -107,7 +107,7 @@ def move_player(player_car):
 run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0)), (FINISH, FINISH_POSITION), (TRACK_BORDER, (0,0))]
-player_car = PlayerCar(8, 6)
+player_car = PlayerCar(9, 6)
 
 
 
