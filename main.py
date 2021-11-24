@@ -19,6 +19,8 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Racing Game!")
 
 FPS = 60
+PATH = [(175, 123), (121, 71), (56, 122), (63, 462), (363, 732), (409, 663), (423, 522), (503, 465), (599, 527), (604, 713), (732, 707), (736, 393), (675, 357), (419, 350), (392, 291), 
+(445, 255), (697, 250), (741, 187), (717, 75), (310, 81), (284, 132), (275, 361), (237, 409), (178, 378)]
 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -141,6 +143,10 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             break
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            computer_car.path.append(pos)
     
     move_player(player_car)    
     
@@ -155,5 +161,5 @@ while run:
             player_car.reset()
             print("finish")
 
-        
+print(computer_car.path)    
 pygame.quit()
