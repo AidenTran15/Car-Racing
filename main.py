@@ -12,6 +12,7 @@ FINISH_MASK = pygame.mask.from_surface(FINISH)
 FINISH_POSITION = (130, 250)
 RED_CAR = scale_image(pygame.image.load("images/red-car.png"), 0.55)
 GREEN_CAR = scale_image(pygame.image.load("images/green-car.png"), 0.55)
+GREY_CAR = scale_image(pygame.image.load("images/grey-car.png"), 0.55)
 
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -79,6 +80,8 @@ class PlayerCar(AbstractCar):
     def bounce(self):
         self.vel = -self.vel
         self.move()
+
+
 
 def draw(win, images, player_car):
     for img, pos in images:
