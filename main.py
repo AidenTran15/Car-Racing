@@ -81,13 +81,30 @@ class PlayerCar(AbstractCar):
         self.vel = -self.vel
         self.move()
 
+class ComputerCar(AbstractCar):
+    IMG = GREY_CAR
+    START_POS = (150, 200)
+    
+    def __init__ (self, max_vel, rotation_vel, path=[]):
+        super().__init__(max_vel, rotation_vel)
+        self.path = path
+        self.current_point = 0
+        self.vel = max_vel
+        
+    def draw_points(self, win):
+        for point in self.path:
+            pygame.draw.circle(win, (255,0,0), point, 5)
+            
+    def draw(self, win):
+        super().draw(win)
+        self.draw_points(win)
 
-
-def draw(win, images, player_car):
+def draw(win, images, player_car, computer_car):
     for img, pos in images:
         win.blit(img, pos)
         
     player_car.draw(win)
+    computer_car.draw(win)
     pygame.display.update() 
     
 def move_player(player_car):
@@ -110,13 +127,14 @@ def move_player(player_car):
 run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0)), (FINISH, FINISH_POSITION), (TRACK_BORDER, (0,0))]
-player_car = PlayerCar(9, 6)
+player_car = PlayerCar(4, 4)
+computer_car = ComputerCar(4, 4)
 
 
 
 while run:
     clock.tick(FPS)
-    draw(WIN, images, player_car)
+    draw(WIN, images, player_car, computer_car)
     
     
     for event in pygame.event.get():
