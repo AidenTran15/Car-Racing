@@ -85,7 +85,7 @@ class PlayerCar(AbstractCar):
 
 class ComputerCar(AbstractCar):
     IMG = GREY_CAR
-    START_POS = (150, 200)
+    START_POS = (151, 200)
     
     def __init__ (self, max_vel, rotation_vel, path=[]):
         super().__init__(max_vel, rotation_vel)
@@ -143,10 +143,6 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             break
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            computer_car.path.append(pos)
     
     move_player(player_car)    
     
