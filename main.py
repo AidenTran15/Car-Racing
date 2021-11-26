@@ -100,7 +100,32 @@ class ComputerCar(AbstractCar):
     def draw(self, win):
         super().draw(win)
         self.draw_points(win)
-        
+     
+    # Find the angle between computer car and the path point   
+    def calculate_angle(self):
+        target_x, target_y = self.path[self.current_point]
+        x_diff = target_x - self.x
+        y_diff = target_y - self.y
+        if y_diff == 0:
+            desired_radian_angle = math.pi/2
+        else:
+            desired_radian_angle = math.atan(x_diff/y_diff) 
+    
+        if targer_y > self.y:
+            desired_radian_angle += math.pi
+            
+        difference_in_angle = self.angle - math.degrees(desired_radian_angle)
+        if difference_in_angle >= 180:
+            difference_in_angle -= 360
+            
+        #rotate the computer car let it move toward the point
+        if deference_in_angle > 0:
+            self.angle -= min(self.rotation_vel, abs(difference_in_angle)) 
+        else:
+            self.angle += min(self.rotation_vel, abs(difference_in_angle))
+    
+    
+    # Computer car moving by following the path
     def move(self):
         if self.current_point >= len(self.path):
             return
