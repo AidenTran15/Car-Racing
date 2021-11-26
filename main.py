@@ -118,7 +118,7 @@ class ComputerCar(AbstractCar):
         if difference_in_angle >= 180:
             difference_in_angle -= 360
             
-        #rotate the computer car let it move toward the point
+        #rotate the computer car to let it move toward the point
         if deference_in_angle > 0:
             self.angle -= min(self.rotation_vel, abs(difference_in_angle)) 
         else:
