@@ -100,6 +100,14 @@ class ComputerCar(AbstractCar):
     def draw(self, win):
         super().draw(win)
         self.draw_points(win)
+        
+    def move(self):
+        if self.current_point >= len(self.path):
+            return
+        
+        self.calculate_angle()
+        self.update_path_point()
+        super().move()
 
 def draw(win, images, player_car, computer_car):
     for img, pos in images:
