@@ -166,7 +166,6 @@ player_car = PlayerCar(4, 4)
 computer_car = ComputerCar(4, 4)
 
 
-
 while run:
     clock.tick(FPS)
     draw(WIN, images, player_car, computer_car)
