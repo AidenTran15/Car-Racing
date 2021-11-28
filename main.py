@@ -28,7 +28,7 @@ class AbstractCar:
         self.max_vel = max_vel
         self.vel = 0
         self.rotation_vel = rotation_vel
-        self.angle = 180
+        self.angle = 0
         self.x, self.y = self.START_POS
         self.acceleration = 0.1
         
@@ -124,6 +124,11 @@ class ComputerCar(AbstractCar):
         else:
             self.angle += min(self.rotation_vel, abs(difference_in_angle))
     
+    def update_path_point(self):
+        target = self.path[self.current_point]
+        rect = pygame.Rect(self.x, self.y, self.img.get_width(), self.img.get_height())
+        if rect.collidepoint(*target):
+            self.current_point += 1
     
     # Computer car moving by following the path
     def move(self):
@@ -177,6 +182,7 @@ while run:
             break
     
     move_player(player_car)    
+    computer_car.move()
     
     if player_car.collide(TRACK_BORDER_MASK) != None:
         player_car.bounce()
