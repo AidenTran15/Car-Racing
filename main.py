@@ -165,6 +165,26 @@ def move_player(player_car):
     if not moved:
         player_car.reduce_speed()
         
+def handle_collision(player_car, computer_car):
+    if player_car.collide(TRACK_BORDER_MASK) != None:
+        player_car.bounce()
+    
+    #reset both car position when computer car hit finish line
+    computer_finish_poi_collide = computer_car.collide(FINISH_MASK, *FINISH_POSITION)
+    if computer_finish_poi_collide != None:
+        player_car.reset()
+        computer_car.reset()
+
+    ##reset both car position when player car hit finish line
+    player_finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
+    if player_finish_poi_collide != None:
+        if player_finish_poi_collide[1] == 0:
+            player_car.bounce()
+        else:
+            player_car.reset()
+            computer_car.reset()
+
+        
 run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0)), (FINISH, FINISH_POSITION), (TRACK_BORDER, (0,0))]
@@ -185,16 +205,8 @@ while run:
     move_player(player_car)    
     computer_car.move()
     
-    if player_car.collide(TRACK_BORDER_MASK) != None:
-        player_car.bounce()
-        
-    finish_poi_collide = player_car.collide(FINISH_MASK, *FINISH_POSITION)
-    if finish_poi_collide != None:
-        if finish_poi_collide[1] == 0:
-            player_car.bounce()
-        else:
-            player_car.reset()
-            print("finish")
+    handle_collision(player_car, computer_car)
+
 
 print(computer_car.path)    
 pygame.quit()
