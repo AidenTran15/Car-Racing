@@ -2,6 +2,7 @@ import pygame
 import time
 import math
 from utils import scale_image, blit_rotate_center
+import pygame.font.init()
 
 GRASS = scale_image(pygame.image.load("images/grass.jpg"), 2.5)
 TRACK = scale_image(pygame.image.load("images/track.png"), 0.9)
@@ -17,6 +18,8 @@ GREY_CAR = scale_image(pygame.image.load("images/grey-car.png"), 0.55)
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Racing Game!")
+
+MAIN_FONT = pygame.font.SysFont("comicsans", 44)
 
 FPS = 60
 PATH = [(175, 119), (110, 70), (56, 133), (70, 481), (318, 731), (404, 680), (418, 521), (507, 475), (600, 551), (613, 715), (736, 713),
