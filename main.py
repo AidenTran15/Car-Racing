@@ -49,10 +49,10 @@ class GameInfo:
         self.started = True
         self.level_start_time = time.time()
         
-    def get_level_time():
+    def get_level_time(self):
         if not self.started:
             return 0
-        return level_start_time - time.time()
+        return round(time.time() - self.level_start_time)
     
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -172,10 +172,19 @@ class ComputerCar(AbstractCar):
         self.update_path_point()
         super().move()
 
-def draw(win, images, player_car, computer_car):
+def draw(win, images, player_car, computer_car, game_info):
     for img, pos in images:
         win.blit(img, pos)
         
+    level_text = MAIN_FONT.render(f"Level: {game_info.level}", 1, (255, 255, 255))
+    win.blit(level_text, (10, HEIGHT - level_text.get_height() - 70))
+    
+    time_text = MAIN_FONT.render(f"Time: {game_info.get_level_time()}s", 1, (255, 255, 255))
+    win.blit(time_text, (10, HEIGHT - time_text.get_height() - 40))
+    
+    vel_text = MAIN_FONT.render(f"Velocity:{player_car.vel}s", 1, (255, 255, 255))
+    win.blit(vel_text, (10, HEIGHT - vel_text.get_height() - 10))
+    
     player_car.draw(win)
     computer_car.draw(win)
     pygame.display.update() 
@@ -227,7 +236,7 @@ game_info = GameInfo()
 
 while run:
     clock.tick(FPS)
-    draw(WIN, images, player_car, computer_car)
+    draw(WIN, images, player_car, computer_car, game_info)
     
     while not game_info.started:
         blit_text_center(WIN, MAIN_FONT,f"Press any key to start level {game_info.level}!")
