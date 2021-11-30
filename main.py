@@ -1,8 +1,8 @@
 import pygame
 import time
 import math
-from utils import scale_image, blit_rotate_center
-import pygame.font.init()
+from utils import scale_image, blit_rotate_center, blit_text_center
+pygame.font.init()
 
 GRASS = scale_image(pygame.image.load("images/grass.jpg"), 2.5)
 TRACK = scale_image(pygame.image.load("images/track.png"), 0.9)
@@ -28,7 +28,7 @@ PATH = [(175, 119), (110, 70), (56, 133), (70, 481), (318, 731), (404, 680), (41
 class GameInfo:
     LEVELS = 10
     
-    def __init__():
+    def __init__(self, level=1):
         self.level = level
         self.started = False
         self.level_start_game = 0
@@ -47,7 +47,7 @@ class GameInfo:
     
     def start_level(self):
         self.started = True
-        self.level_start_time - time.time()
+        self.level_start_time = time.time()
         
     def get_level_time():
         if not self.started:
@@ -221,13 +221,24 @@ run = True
 clock = pygame.time.Clock()
 images = [(GRASS, (0,0)), (TRACK, (0,0)), (FINISH, FINISH_POSITION), (TRACK_BORDER, (0,0))]
 player_car = PlayerCar(4, 4)
-computer_car = ComputerCar(4, 4, PATH)
+computer_car = ComputerCar(2, 4, PATH)
+game_info = GameInfo()
 
 
 while run:
     clock.tick(FPS)
     draw(WIN, images, player_car, computer_car)
     
+    while not game_info.started:
+        blit_text_center(WIN, MAIN_FONT,f"Press any key to start level {game_info.level}!")
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                break
+            
+            if event.type == pygame.KEYDOWN:
+                game_info.start_level()
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
