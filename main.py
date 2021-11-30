@@ -171,18 +171,23 @@ class ComputerCar(AbstractCar):
         self.calculate_angle()
         self.update_path_point()
         super().move()
+        
+    def next_level(self):
+        self.reset()
+        self.vel = self.max_vel + (level - 1) * 0.2
+        self.current_point = 0
 
 def draw(win, images, player_car, computer_car, game_info):
     for img, pos in images:
         win.blit(img, pos)
         
-    level_text = MAIN_FONT.render(f"Level: {game_info.level}", 1, (255, 255, 255))
+    level_text = MAIN_FONT.render(f"Level {game_info.level}", 1, (255, 255, 255))
     win.blit(level_text, (10, HEIGHT - level_text.get_height() - 70))
     
     time_text = MAIN_FONT.render(f"Time: {game_info.get_level_time()}s", 1, (255, 255, 255))
     win.blit(time_text, (10, HEIGHT - time_text.get_height() - 40))
     
-    vel_text = MAIN_FONT.render(f"Velocity: {round(player_car.vel,1)}s", 1, (255, 255, 255))
+    vel_text = MAIN_FONT.render(f"Velocity: {round(player_car.vel,1)}px/s", 1, (255, 255, 255))
     win.blit(vel_text, (10, HEIGHT - vel_text.get_height() - 10))
     
     player_car.draw(win)
@@ -206,7 +211,7 @@ def move_player(player_car):
     if not moved:
         player_car.reduce_speed()
         
-def handle_collision(player_car, computer_car):
+def handle_collision(player_car, computer_car, game_info):
     if player_car.collide(TRACK_BORDER_MASK) != None:
         player_car.bounce()
     
@@ -257,7 +262,7 @@ while run:
     move_player(player_car)    
     computer_car.move()
     
-    handle_collision(player_car, computer_car)
+    handle_collision(player_car, computer_car, game_info)
 
 
 print(computer_car.path)    
