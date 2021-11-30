@@ -182,7 +182,7 @@ def draw(win, images, player_car, computer_car, game_info):
     time_text = MAIN_FONT.render(f"Time: {game_info.get_level_time()}s", 1, (255, 255, 255))
     win.blit(time_text, (10, HEIGHT - time_text.get_height() - 40))
     
-    vel_text = MAIN_FONT.render(f"Velocity:{player_car.vel}s", 1, (255, 255, 255))
+    vel_text = MAIN_FONT.render(f"Velocity: {round(player_car.vel,1)}s", 1, (255, 255, 255))
     win.blit(vel_text, (10, HEIGHT - vel_text.get_height() - 10))
     
     player_car.draw(win)
